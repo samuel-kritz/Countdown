@@ -46,12 +46,8 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Counter(modifier: Modifier = Modifier) {
-
-//    var counter by rememberSaveable() { mutableIntStateOf(100) }
-//    val scope = rememberCoroutineScope()
-
-    val countdownVM: CountdownVM = viewModel()
+fun Counter(countdownVM: CountdownVM = viewModel(), modifier: Modifier = Modifier) {
+    //now preview can invoke without passing in view model.  won't break now
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -60,7 +56,6 @@ fun Counter(modifier: Modifier = Modifier) {
     ) {
 
         Text(
-//            text = counter.toString(),
             text = countdownVM.counter.toString(),
             modifier = modifier,
             fontSize = 96.sp
@@ -68,14 +63,7 @@ fun Counter(modifier: Modifier = Modifier) {
 
         //can use threading in onClick
         Button({
-//            scope.launch {
-//                repeat(100) {
-//                    counter = (100-it)
-//                    delay(1000.milliseconds)
-//                }
-
             countdownVM.startCountdown()
-
         }) {
             Image(
                 painterResource(android.R.drawable.ic_media_play),
